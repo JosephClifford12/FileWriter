@@ -2,10 +2,9 @@ package Inheritance;
 
 import java.io.*;
 import java.nio.Buffer;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Scanner;
+import java.nio.file.Path;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class AnimalTest {
 
@@ -127,7 +126,7 @@ public class AnimalTest {
                     fileName = sc.nextLine();
                     updatedFileName = fileName;
 
-                    //updateFileContent(fileName, updatedFileName);
+                    updateFileContent(updatedFileName, listOfNames);
 
 
 
@@ -203,12 +202,48 @@ public class AnimalTest {
     }
 
 
-    public static void updateFileContent(String currentFileName, String newFileName) {
+    public static void updateFileContent(String currentFileName, ArrayList<String> namesList) {
+
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("(MM dd yyyy)");
+        String strDate = formatter.format(date);
+        try{
+            BufferedWriter bw = new BufferedWriter(
+                    new FileWriter("G:\\JavaFileSave\\" + currentFileName + strDate +"update.txt"));
+
+            BufferedReader br = new BufferedReader(
+                    new FileReader("G:\\JavaFileSave\\" + currentFileName + ".txt"));
+
+            String s = "";
+            while ((s = br.readLine()) != null){
+                bw.write(s + "\n");
+            }
+            String sUpdates = "";
+            for (String name : namesList
+            ) {
+                sUpdates += name;
+
+            }
+
+            s = sUpdates;
+
+            bw.write(s);
+
+
+            br.close();
+            bw.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
     }
 
+    public static void deleteFile(String fileName) {
 
+
+    }
 }
 
 
